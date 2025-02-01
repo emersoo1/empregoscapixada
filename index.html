@@ -1,1 +1,277 @@
-ECHO est� ativado.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontre as melhores oportunidades de emprego no Espírito Santo. Vagas atualizadas para diversos setores.">
+    <meta name="keywords" content="empregos, vagas, Espírito Santo, Vitória, Vila Velha">
+    <meta name="author" content="Empregos Capixaba">
+    <title>Empregos Capixaba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background: linear-gradient(to right, #0033cc, #ffffff, #ff66cc);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ads-space {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #003b8e;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            background-color: #002e6b;
+        }
+
+        main {
+            display: flex;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .content {
+            flex: 3;
+            margin-right: 20px;
+        }
+
+        .job-listing {
+            background-color: white;
+            margin: 10px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .job-listing button {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .job-listing button:hover {
+            background-color: #003b8e;
+        }
+
+        footer {
+            background-color: #004aad;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .form-section input, .form-section textarea, .form-section button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-section button {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-section button:hover {
+            background-color: #003b8e;
+        }
+
+        /* Ajustes de Acessibilidade */
+        header h1, footer p {
+            font-size: 24px;
+        }
+
+        header p, footer {
+            font-size: 14px;
+        }
+
+        /* Seta para voltar ao topo */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #004aad;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            display: none; /* Inicialmente escondida */
+            transition: opacity 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #003b8e;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .ads-space {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 10px;
+            }
+
+            main {
+                flex-direction: column;
+            }
+
+            .content {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Empregos Capixaba</h1>
+            <p>Encontre as melhores oportunidades no Espírito Santo!</p>
+        </div>
+        <div class="ads-space">
+            <p>Espaço para anúncios</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#vagas">Vagas</a>
+        <a href="#anunciar">Anunciar Vaga</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+    <main>
+        <div class="content">
+            <section id="vagas">
+                <h2>Vagas Disponíveis</h2>
+                <!-- As vagas serão adicionadas dinamicamente aqui -->
+            </section>
+
+            <section id="anunciar" class="form-section">
+                <h2>Anunciar uma Vaga</h2>
+                <form id="job-form" onsubmit="return handleFormSubmit(event)">
+                    <input type="text" placeholder="Título da Vaga" required>
+                    <input type="text" placeholder="Local" required>
+                    <input type="text" placeholder="Salário" required>
+                    <textarea placeholder="Descrição da Vaga" rows="5" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+                <div id="form-feedback" class="form-success" style="display: none;">Vaga enviada com sucesso!</div>
+                <div id="form-error" class="form-error" style="display: none;">Preencha todos os campos corretamente.</div>
+            </section>
+        </div>
+
+        <div class="ads-space">
+            <p>Espaço para anúncios</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Empregos Capixaba - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Seta para voltar ao topo -->
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        &#8593; <!-- Código HTML para a seta para cima -->
+    </div>
+
+    <script>
+        // Mostrar a seta quando o usuário rolar para baixo
+        window.onscroll = function() {
+            const scrollButton = document.querySelector('.scroll-to-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollButton.style.display = 'block'; // Exibe a seta
+            } else {
+                scrollButton.style.display = 'none'; // Esconde a seta
+            }
+        };
+
+        // Função para rolar para o topo
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Validação do formulário
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const inputs = form.querySelectorAll('input, textarea');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.border = '1px solid red'; // Destaca campos inválidos
+                } else {
+                    input.style.border = '1px solid #ccc'; // Remove o destaque se válido
+                }
+            });
+
+            if (isValid) {
+                document.getElementById('form-feedback').style.display = 'block';
+                document.getElementById('form-error').style.display = 'none';
+                form.reset(); // Limpa o formulário após o envio
+            } else {
+                document.getElementById('form-error').style.display = 'block';
+                document.getElementById('form-feedback').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
