@@ -13,7 +13,7 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Validação do formulário
+// Validação do formulário e envio para o Firebase
 function handleFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
@@ -33,68 +33,46 @@ function handleFormSubmit(event) {
         document.getElementById('form-feedback').style.display = 'block';
         document.getElementById('form-error').style.display = 'none';
         form.reset(); // Limpa o formulário após o envio
-        // Adicionar a vaga ao Firebase
-        addJobToFirebase(form);
+        addJobToFirebase(inputs);
     } else {
         document.getElementById('form-error').style.display = 'block';
         document.getElementById('form-feedback').style.display = 'none';
     }
 }
 
-// Interatividade nos botões de candidatura
-document.querySelectorAll('.job-listing button').forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Você será redirecionado para a página de candidatura.');
-        // window.location.href = 'link-da-candidatura';
-    });
-});
-
-// Função para adicionar vaga ao Firebase
+// Função para adicionar vaga no Firestore
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-const db = getFirestore();
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 
-async function addJobToFirebase(form) {
-    const jobTitle = form.querySelector('input[placeholder="Título da Vaga"]').value;
-    const jobLocation = form.querySelector('input[placeholder="Local"]').value;
-    const jobSalary = form.querySelector('input[placeholder="Salário"]').value;
-    const jobDescription = form.querySelector('textarea[placeholder="Descrição da Vaga"]').value;
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyC8WZRjaa-_WUQXHZuKTIAxMssNWBAXJbI",
+    authDomain: "empregos-capixaba-582ad.firebaseapp.com",
+    projectId: "empregos-capixaba-582ad",
+    storageBucket: "empregos-capixaba-582ad.firebasestorage.app",
+    messagingSenderId: "60547519504",
+    appId: "1:60547519504:web:d55cf96fefa7e6afe32695",
+    measurementId: "G-YE6876RQ9W"
+};
 
-    try {
-        const docRef = await addDoc(collection(db, "vagas"), {
-            title: jobTitle,
-            location: jobLocation,
-            salary: jobSalary,
-            description: jobDescription
+// Inicializa o Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Função para adicionar vaga no Firebase
+function addJobToFirebase(inputs) {
+    const jobData = {
+        title: inputs[0].value,
+        location: inputs[1].value,
+        salary: inputs[2].value,
+        description: inputs[3].value
+    };
+
+    addDoc(collection(db, "jobs"), jobData)
+        .then(() => {
+            console.log("Vaga enviada com sucesso!");
+        })
+        .catch(error => {
+            console.error("Erro ao enviar vaga: ", error);
         });
-        console.log("Vaga adicionada com ID: ", docRef.id);
-    } catch (e) {
-        console.error("Erro ao adicionar vaga: ", e);
-    }
 }
-
-// Função para carregar as vagas do Firebase
-import { getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-
-async function loadJobs() {
-    const querySnapshot = await getDocs(collection(db, "vagas"));
-    const jobListingSection = document.querySelector("#vagas .content");
-
-    querySnapshot.forEach((doc) => {
-        const job = doc.data();
-        const jobElement = document.createElement('div');
-        jobElement.classList.add('job-listing');
-
-        jobElement.innerHTML = `
-            <h3>${job.title}</h3>
-            <p><strong>Local:</strong> ${job.location}</p>
-            <p><strong>Salário:</strong> ${job.salary}</p>
-            <p><strong>Descrição:</strong> ${job.description}</p>
-            <button onclick="window.location.href='mailto:contato@empregoscapixaba.com?subject=Candidatura para ${job.title}'">Candidatar-se</button>
-        `;
-
-        jobListingSection.appendChild(jobElement);
-    });
-}
-
-// Carregar as vagas ao carregar a página
-window.onload = loadJobs;
