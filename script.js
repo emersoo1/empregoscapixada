@@ -33,6 +33,8 @@ function handleFormSubmit(event) {
         document.getElementById('form-feedback').style.display = 'block';
         document.getElementById('form-error').style.display = 'none';
         form.reset(); // Limpa o formulário após o envio
+        // Adicionar a vaga ao Firebase
+        addJobToFirebase(form);
     } else {
         document.getElementById('form-error').style.display = 'block';
         document.getElementById('form-feedback').style.display = 'none';
@@ -46,3 +48,53 @@ document.querySelectorAll('.job-listing button').forEach(button => {
         // window.location.href = 'link-da-candidatura';
     });
 });
+
+// Função para adicionar vaga ao Firebase
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+const db = getFirestore();
+
+async function addJobToFirebase(form) {
+    const jobTitle = form.querySelector('input[placeholder="Título da Vaga"]').value;
+    const jobLocation = form.querySelector('input[placeholder="Local"]').value;
+    const jobSalary = form.querySelector('input[placeholder="Salário"]').value;
+    const jobDescription = form.querySelector('textarea[placeholder="Descrição da Vaga"]').value;
+
+    try {
+        const docRef = await addDoc(collection(db, "vagas"), {
+            title: jobTitle,
+            location: jobLocation,
+            salary: jobSalary,
+            description: jobDescription
+        });
+        console.log("Vaga adicionada com ID: ", docRef.id);
+    } catch (e) {
+        console.error("Erro ao adicionar vaga: ", e);
+    }
+}
+
+// Função para carregar as vagas do Firebase
+import { getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+async function loadJobs() {
+    const querySnapshot = await getDocs(collection(db, "vagas"));
+    const jobListingSection = document.querySelector("#vagas .content");
+
+    querySnapshot.forEach((doc) => {
+        const job = doc.data();
+        const jobElement = document.createElement('div');
+        jobElement.classList.add('job-listing');
+
+        jobElement.innerHTML = `
+            <h3>${job.title}</h3>
+            <p><strong>Local:</strong> ${job.location}</p>
+            <p><strong>Salário:</strong> ${job.salary}</p>
+            <p><strong>Descrição:</strong> ${job.description}</p>
+            <button onclick="window.location.href='mailto:contato@empregoscapixaba.com?subject=Candidatura para ${job.title}'">Candidatar-se</button>
+        `;
+
+        jobListingSection.appendChild(jobElement);
+    });
+}
+
+// Carregar as vagas ao carregar a página
+window.onload = loadJobs;
