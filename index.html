@@ -3,53 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontre as melhores oportunidades de emprego no Espírito Santo. Vagas atualizadas para diversos setores.">
+    <meta name="keywords" content="empregos, vagas, Espírito Santo, Vitória, Vila Velha">
+    <meta name="author" content="Empregos Capixaba">
     <title>Empregos Capixaba</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Empregos Capixaba</h1>
-        <div class="ads-space">Espaço para Anúncios</div>
+        <div>
+            <h1>Empregos Capixaba</h1>
+            <p>Encontre as melhores oportunidades no Espírito Santo!</p>
+        </div>
+        <div class="ads-space">
+            <p>Espaço para anúncios</p>
+        </div>
     </header>
-    
+
     <nav>
-        <a href="#">Início</a>
-        <a href="#">Vagas</a>
-        <a href="#">Sobre</a>
-        <a href="#">Contato</a>
+        <a href="#">Home</a>
+        <a href="#vagas">Vagas</a>
+        <a href="#anunciar">Anunciar Vaga</a>
+        <a href="#contato">Contato</a>
     </nav>
-    
+
     <main>
-        <section class="content">
-            <div class="job-listing">
-                <h2>Vaga: Desenvolvedor Web</h2>
-                <p>Empresa: Tech Solutions</p>
-                <p>Localização: Vitória - ES</p>
-                <button>Candidatar-se</button>
-            </div>
-        </section>
-        
-        <aside class="ads-space">Espaço para Anúncios</aside>
+        <div class="content">
+            <section id="vagas">
+                <h2>Vagas Disponíveis</h2>
+                <div class="job-listing">
+                    <h3>Analista de Sistemas</h3>
+                    <p><strong>Local:</strong> Vitória, ES</p>
+                    <p><strong>Salário:</strong> R$ 5.000,00</p>
+                    <p><strong>Descrição:</strong> Atuar no desenvolvimento e suporte de sistemas empresariais.</p>
+                    <button>Candidatar-se</button>
+                </div>
+                <div class="job-listing">
+                    <h3>Auxiliar Administrativo</h3>
+                    <p><strong>Local:</strong> Vila Velha, ES</p>
+                    <p><strong>Salário:</strong> R$ 2.000,00</p>
+                    <p><strong>Descrição:</strong> Suporte administrativo e organização de documentos.</p>
+                    <button>Candidatar-se</button>
+                </div>
+            </section>
+
+            <section id="anunciar" class="form-section">
+                <h2>Anunciar uma Vaga</h2>
+                <form id="job-form" onsubmit="return handleFormSubmit(event)">
+                    <input type="text" placeholder="Título da Vaga" required>
+                    <input type="text" placeholder="Local" required>
+                    <input type="text" placeholder="Salário" required>
+                    <textarea placeholder="Descrição da Vaga" rows="5" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+                <div id="form-feedback" class="form-success" style="display: none;">Vaga enviada com sucesso!</div>
+                <div id="form-error" class="form-error" style="display: none;">Preencha todos os campos corretamente.</div>
+            </section>
+
+            <section id="contato">
+                <h2>Contato</h2>
+                <p>Entre em contato conosco pelo email: contato@empregoscapixaba.com</p>
+            </section>
+        </div>
+
+        <div class="ads-space">
+            <p>Espaço para anúncios</p>
+        </div>
     </main>
-    
-    <section class="form-section">
-        <h2>Entre em contato</h2>
-        <form id="contact-form" onsubmit="handleFormSubmit(event)">
-            <input type="text" placeholder="Seu nome" required>
-            <input type="email" placeholder="Seu e-mail" required>
-            <textarea placeholder="Sua mensagem" required></textarea>
-            <button type="submit">Enviar</button>
-            <p id="form-feedback" style="display:none; color:green;">Mensagem enviada com sucesso!</p>
-            <p id="form-error" style="display:none; color:red;">Preencha todos os campos!</p>
-        </form>
-    </section>
-    
+
     <footer>
         <p>&copy; 2025 Empregos Capixaba - Todos os direitos reservados.</p>
     </footer>
-    
-    <div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
-    
+
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        &#8593;
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
