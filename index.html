@@ -78,6 +78,64 @@
     <div class="scroll-to-top" onclick="scrollToTop()">
         &#8593;
     </div>
-    <script src="script.js"></script>
+
+    <script type="module">
+        // Importando as funções do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8WZRjaa-_WUQXHZuKTIAxMssNWBAXJbI",
+            authDomain: "empregos-capixaba-582ad.firebaseapp.com",
+            projectId: "empregos-capixaba-582ad",
+            storageBucket: "empregos-capixaba-582ad.firebasestorage.app",
+            messagingSenderId: "60547519504",
+            appId: "1:60547519504:web:d55cf96fefa7e6afe32695",
+            measurementId: "G-YE6876RQ9W"
+        };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Função para salvar a vaga no Firestore
+        async function salvarVaga(vaga) {
+            try {
+                const docRef = await addDoc(collection(db, "vagas"), vaga);
+                console.log("Vaga salva com ID: ", docRef.id);
+            } catch (e) {
+                console.error("Erro ao salvar a vaga: ", e);
+            }
+        }
+
+        // Função para manipular o envio do formulário
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const titulo = event.target[0].value;
+            const local = event.target[1].value;
+            const salario = event.target[2].value;
+            const descricao = event.target[3].value;
+
+            const novaVaga = {
+                titulo: titulo,
+                local: local,
+                salario: salario,
+                descricao: descricao,
+                link: "http://exemplo.com/candidatar-se"  // Coloque o link real aqui
+            };
+
+            salvarVaga(novaVaga);
+
+            // Exibir feedback
+            document.getElementById("form-feedback").style.display = "block";
+            document.getElementById("form-error").style.display = "none";
+
+            // Limpar o formulário
+            event.target.reset();
+        }
+    </script>
+
 </body>
 </html>
