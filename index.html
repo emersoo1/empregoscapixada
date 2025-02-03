@@ -200,7 +200,22 @@
         <div class="content">
             <section id="vagas">
                 <h2>Vagas Disponíveis</h2>
-                <!-- As vagas serão adicionadas dinamicamente aqui -->
+
+                <div class="job-listing">
+                    <h3>Analista de Sistemas</h3>
+                    <p><strong>Local:</strong> Vitória, ES</p>
+                    <p><strong>Salário:</strong> R$ 5.000,00</p>
+                    <p><strong>Descrição:</strong> Atuar no desenvolvimento e suporte de sistemas empresariais.</p>
+                    <button>Candidatar-se</button>
+                </div>
+
+                <div class="job-listing">
+                    <h3>Auxiliar Administrativo</h3>
+                    <p><strong>Local:</strong> Vila Velha, ES</p>
+                    <p><strong>Salário:</strong> R$ 2.000,00</p>
+                    <p><strong>Descrição:</strong> Suporte administrativo e organização de documentos.</p>
+                    <button>Candidatar-se</button>
+                </div>
             </section>
 
             <section id="anunciar" class="form-section">
@@ -214,6 +229,11 @@
                 </form>
                 <div id="form-feedback" class="form-success" style="display: none;">Vaga enviada com sucesso!</div>
                 <div id="form-error" class="form-error" style="display: none;">Preencha todos os campos corretamente.</div>
+            </section>
+
+            <section id="contato">
+                <h2>Contato</h2>
+                <p>Entre em contato conosco pelo email: contato@empregoscapixaba.com</p>
             </section>
         </div>
 
@@ -272,6 +292,14 @@
                 document.getElementById('form-feedback').style.display = 'none';
             }
         }
+
+        // Interatividade nos botões de candidatura
+        document.querySelectorAll('.job-listing button').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Você será redirecionado para a página de candidatura.');
+                // window.location.href = 'link-da-candidatura';
+            });
+        });
     </script>
 </body>
 </html>
